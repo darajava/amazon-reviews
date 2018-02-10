@@ -5,7 +5,6 @@ const initialState = {
   groupBy: 'day',
   searchTerm: '',
   stars: [true, true, true, true, true],
-  noop: '',
 }
 
 
@@ -30,11 +29,10 @@ const filterReducer = function(state = initialState, action) {
       });
 
     case 'UPDATE_STARS':
-      // Copy the array because we can't mutate the original 
-      
+      // Copy the array because we can't mutate the original
       let stars = state.stars.slice();
+
       let index = parseInt(action.toggleStar, 10) - 1;
-      
       stars[index] = !stars[index];
 
       return Object.assign({}, state, {
