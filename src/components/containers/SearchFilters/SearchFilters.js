@@ -8,10 +8,6 @@ class SearchFilters extends Component {
 
     constructor() {
       super();
-
-      this.state = {
-        redirect: false,
-      }
     }
 
     render() {

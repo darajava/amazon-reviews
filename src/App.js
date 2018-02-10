@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Provider } from 'react-redux';
+import store from './store';
+
 import SearchFilters from './components/containers/SearchFilters/SearchFilters';
 // import SearchResults from './components/containers/SearchResults';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <Provider store={store}>
         <SearchFilters />
-      </div>
+      </Provider>
     );
   }
 }
