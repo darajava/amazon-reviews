@@ -4,3 +4,17 @@ export function updateSearchTerm(searchTerm) {
     searchTerm,
   };
 }
+
+export function updateOrdering(orderBy) {
+  return {
+    type: 'UPDATE_ORDERING',
+    orderBy,
+  };
+}
+
+export function updateGrouping(groupBy) {
+  return {
+    type: 'UPDATE_GROUPING',
+    groupBy,
+  };
+}

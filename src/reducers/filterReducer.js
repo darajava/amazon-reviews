@@ -17,6 +17,14 @@ const filterReducer = function(state = initialState, action) {
       return Object.assign({}, state, {
         searchTerm: action.searchTerm,
       });
+    case 'UPDATE_GROUPING':
+      return Object.assign({}, state, {
+        groupBy: action.groupBy,
+      });
+    case 'UPDATE_ORDERING':
+      return Object.assign({}, state, {
+        orderBy: action.orderBy,
+      });
 
   }
 

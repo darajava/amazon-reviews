@@ -2,11 +2,11 @@ import React , { Component } from 'react';
 import { connect } from 'react-redux';
 
 import InputField from '../../views/InputField/InputField';
-import OptionField from '../../views/DropdownField/DropdownField';
+import DropdownField from '../../views/DropdownField/DropdownField';
 import StarField from '../../views/StarField/StarField';
 
 import store from '../../../store';
-import {updateSearchTerm} from '../../../actions/filterActions';
+import {updateSearchTerm, updateGrouping, updateOrdering} from '../../../actions/filterActions';
 
 class SearchFilters extends Component {
 
@@ -14,12 +14,27 @@ class SearchFilters extends Component {
       super();
 
       // Ideally we would get these from an API/config file
-      this.groupByOptions = ['day', 'week', 'month'];
-      this.orderByOptions = ['descending date', 'ascending date'];
+      this.groupByOptions = [
+        {k: 'Day', v: 'day'},
+        {k: 'Week', v: 'week'},
+        {k: 'Month', v: 'month'},
+      ];
+      this.orderByOptions = [
+        {k: 'Descending date', v: 'desc'},
+        {k: 'Ascending date', v: 'asc'},
+      ];
     }
 
     changeSearchTerm(searchTerm) {
       store.dispatch(updateSearchTerm(searchTerm));
+    }
+    
+    changeOrdering(orderBy) {
+      store.dispatch(updateOrdering(orderBy));
+    }
+    
+    changeGrouping(groupBy) {
+      store.dispatch(updateGrouping(groupBy));
     }
 
     render() {
@@ -27,8 +42,18 @@ class SearchFilters extends Component {
         <div>
           <InputField term={this.props.searchTerm} handleChange={(searchTerm) => this.changeSearchTerm(searchTerm)} />
           <div>
-            <OptionField selected={this.props.groupBy} options={this.groupByOptions} placeholder="Group by" />
-            <OptionField selected={this.props.orderBy} options={this.orderByOptions} placeholder="Order by" />
+            <DropdownField
+              selected={this.props.groupBy}
+              options={this.groupByOptions}
+              placeholder="Group by"
+              handleChange={(groupBy) => this.changeGrouping(groupBy)}
+            />
+            <DropdownField
+              selected={this.props.orderBy}
+              options={this.orderByOptions}
+              placeholder="Order by"
+              handleChange={(orderBy) => this.changeOrdering(orderBy)}
+            />
           </div>
           <StarField selected={this.props.stars}/>
         </div>

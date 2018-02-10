@@ -12,10 +12,11 @@ import React from 'react';
 const DropdownField = (props) => {
 
   return (
-    <select>
-      <option>Hi</option>
-      <option>Hii</option>
-      <option>Hioo</option>
+    <select onChange={(e) => props.handleChange(e.target.value)}>
+      <option value="" disabled selected>{props.placeholder}</option>
+      {props.options.map((option) => {
+        return <option value={option.v}>{option.k}</option>
+      })}
     </select>
   );
         
