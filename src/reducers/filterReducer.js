@@ -4,7 +4,8 @@ const initialState = {
   orderBy: 'desc',
   groupBy: 'day',
   searchTerm: '',
-  stars: [1, 2, 3, 4, 5],
+  stars: [true, true, true, true, true],
+  noop: '',
 }
 
 
@@ -17,19 +18,32 @@ const filterReducer = function(state = initialState, action) {
       return Object.assign({}, state, {
         searchTerm: action.searchTerm,
       });
+
     case 'UPDATE_GROUPING':
       return Object.assign({}, state, {
         groupBy: action.groupBy,
       });
+
     case 'UPDATE_ORDERING':
       return Object.assign({}, state, {
         orderBy: action.orderBy,
       });
 
+    case 'UPDATE_STARS':
+      // Copy the array because we can't mutate the original 
+      
+      let stars = state.stars.slice();
+      let index = parseInt(action.toggleStar, 10) - 1;
+      
+      stars[index] = !stars[index];
+
+      return Object.assign({}, state, {
+        stars,
+      });
+
+    default:
+      return state;
   }
-
-  return state;
-
 }
 
 export default filterReducer;

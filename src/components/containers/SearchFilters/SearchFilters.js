@@ -6,7 +6,7 @@ import DropdownField from '../../views/DropdownField/DropdownField';
 import StarField from '../../views/StarField/StarField';
 
 import store from '../../../store';
-import {updateSearchTerm, updateGrouping, updateOrdering} from '../../../actions/filterActions';
+import {updateSearchTerm, updateGrouping, updateOrdering, updateStars} from '../../../actions/filterActions';
 
 class SearchFilters extends Component {
 
@@ -37,10 +37,18 @@ class SearchFilters extends Component {
       store.dispatch(updateGrouping(groupBy));
     }
 
+    changeStars(toggleStar) {
+      store.dispatch(updateStars(toggleStar));
+    }
+
     render() {
+      console.log(this.props.stars);
       return (
         <div>
-          <InputField term={this.props.searchTerm} handleChange={(searchTerm) => this.changeSearchTerm(searchTerm)} />
+          <InputField
+            term={this.props.searchTerm}
+            handleChange={(searchTerm) => this.changeSearchTerm(searchTerm)}
+          />
           <div>
             <DropdownField
               selected={this.props.groupBy}
@@ -55,7 +63,10 @@ class SearchFilters extends Component {
               handleChange={(orderBy) => this.changeOrdering(orderBy)}
             />
           </div>
-          <StarField selected={this.props.stars}/>
+          <StarField
+            stars={this.props.stars}
+            handleChange={(toggleStar) => {this.changeStars(toggleStar)}}
+          />
         </div>
       );
     }

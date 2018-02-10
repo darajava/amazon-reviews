@@ -18,3 +18,10 @@ export function updateGrouping(groupBy) {
     groupBy,
   };
 }
+
+export function updateStars(toggleStar) {
+  return {
+    type: 'UPDATE_STARS',
+    toggleStar,
+  };
+}
