@@ -20,8 +20,8 @@ class SearchFilters extends Component {
         {k: 'Month', v: 'month'},
       ];
       this.orderByOptions = [
-        {k: 'Descending date', v: 'desc'},
-        {k: 'Ascending date', v: 'asc'},
+        {k: 'Newest first', v: 'desc'},
+        {k: 'Oldest first', v: 'asc'},
       ];
     }
 
