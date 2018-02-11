@@ -1,12 +1,15 @@
 import React from 'react';
+import CSSModules from 'react-css-modules';
+
+import styles from './styles.css';
 
 const InputField = (props) => {
 
   return (
-    <input value={props.term} onChange={(e) => props.handleChange(e.target.value)} />
+    <input styleName='input' value={props.term} onChange={(e) => props.handleChange(e.target.value)} />
   );
         
 }
 
-export default InputField;
+export default CSSModules(InputField, styles);
  
