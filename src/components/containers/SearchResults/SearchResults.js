@@ -99,7 +99,11 @@ class SearchResults extends Component {
       return (
         <div>
           {filteredResults.map((review) => {
-            return <Review key={review.reviewId} data={review} />
+            return <Review
+              key={review.reviewId}
+              data={review}
+              searchTerm={this.props.searchTerm}
+            />
           })}
         </div>
       );
