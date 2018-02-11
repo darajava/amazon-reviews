@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import ReviewGroup from '../../views/ReviewGroup/ReviewGroup';
+import Loading from '../../views/Loading/Loading';
 
 import store from '../../../store';
 
@@ -20,6 +21,19 @@ class SearchResults extends Component {
       }
 
       this.fetchReviewPage = this.fetchReviewPage.bind(this);
+
+      // Set up listener to check if user has scrolled to the bottom
+      window.onscroll = (ev) => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+          if (!this.state.loading && !this.state.finished) {
+            this.setState({
+              loading: true
+            });
+
+            this.fetchReviewPage();
+          }
+        }
+      };
     }
 
     componentWillMount() {
@@ -123,7 +137,8 @@ class SearchResults extends Component {
               />
             })
           }
-          
+
+          {this.state.loading && <Loading />}
         </div>
       );
     }
