@@ -6,7 +6,7 @@ import styles from './styles.css';
 const InputField = (props) => {
 
   return (
-    <input styleName='input' value={props.term} onChange={(e) => props.handleChange(e.target.value)} />
+    <input placeholder="Search..." styleName='input' value={props.term} onChange={(e) => props.handleChange(e.target.value)} />
   );
         
 }
