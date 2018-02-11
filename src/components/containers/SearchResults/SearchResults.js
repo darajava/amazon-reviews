@@ -149,6 +149,8 @@ class SearchResults extends Component {
           }
 
           {this.state.loading && <Loading />}
+          {this.state.finished && !!Object.keys(filteredResults).length && <div>End of results</div>}
+          {this.state.finished && !Object.keys(filteredResults).length && <div>No results</div>}
         </div>
       );
     }

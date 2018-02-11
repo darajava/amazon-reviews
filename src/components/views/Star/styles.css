@@ -1,7 +1,8 @@
 .container {
   position: relative;
-  padding-left: 25px;
+  padding-left: 23px;
   margin-left: 2px;
+  margin-right: 16px;
   margin-bottom: 12px;
   cursor: pointer;
   user-select: none;
