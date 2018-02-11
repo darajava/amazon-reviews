@@ -22,8 +22,8 @@ class SearchResults extends Component {
 
       this.fetchReviewPage = this.fetchReviewPage.bind(this);
 
-      // Set up listener to check if user has scrolled to the bottom
-      window.onscroll = (ev) => {
+      this.checkScroll = () => {
+        console.log('scrollin')
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
           if (!this.state.loading && !this.state.finished) {
             this.setState({
@@ -34,10 +34,20 @@ class SearchResults extends Component {
           }
         }
       };
+
+      // Set up listener to check if user has scrolled to the bottom
+      window.onscroll = this.checkScroll;
     }
 
     componentWillMount() {
       this.fetchReviewPage();
+    }
+
+    componentDidUpdate() {
+      // After each render, see if results don't reach bottom of screen, and if they don't then
+      // call another page of results. Note that this will call all of the pages if a search
+      // term is input that doesn't exist in the search results
+      this.checkScroll();
     }
 
     fetchReviewPage() {

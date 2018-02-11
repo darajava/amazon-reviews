@@ -1,0 +1,12 @@
+.time-group {
+	text-transform: uppercase;
+  font-weight: bold;
+  color: #ababba;
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+.reviews {
+  padding-left: 20px;
+  border-left: 4px solid #d1eaef;
+}

@@ -2,7 +2,7 @@
 
 const initialState = {
   orderBy: 'desc',
-  groupBy: 'day',
+  groupBy: 'month',
   searchTerm: '',
   stars: [true, true, true, true, true],
 }

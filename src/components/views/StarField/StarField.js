@@ -7,7 +7,7 @@ import styles from './styles.css';
 const StarField = (props) => {
 
   return (
-    <div>
+    <div styleName='container'>
       <div styleName='title'>
         FILTER BY:
       </div>

@@ -1,5 +1,10 @@
 import React from 'react';
-import moment from 'moment'
+import moment from 'moment';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
+
+import CSSModules from 'react-css-modules';
+
+import styles from './styles.css';
 
 const Review = (props) => {
   let review = props.data;
@@ -16,7 +21,7 @@ const Review = (props) => {
     for (let i = 0; i < title.length; i++) {
       console.log(typeof title[i]);
       if (title[i].toUpperCase() === props.searchTerm.toUpperCase()) {
-        title[i] = <b>{title[i]}</b>
+        title[i] = <span styleName='highlight'>{title[i]}</span>
       }
     }
 
@@ -25,25 +30,43 @@ const Review = (props) => {
     for (let i = 0; i < content.length; i++) {
       console.log(typeof content[i]);
       if (content[i].toUpperCase() === props.searchTerm.toUpperCase()) {
-        content[i] = <b>{content[i]}</b>
+        content[i] = <span styleName='highlight'>{content[i]}</span>
       }
     }
   }
 
   return (
-    <div key={review.reviewId}>
-      <br />
-      <div>
-        <span>{review.stars} - </span>
-        <span>{moment(review.reviewCreated).format('DD.MM.YYYY')}</span>
+    <div styleName='container' key={review.reviewId}>
+      <div styleName='heading'>
+        <div styleName='fake-image' />
+        <div styleName='info-holder'>
+          <div styleName='info-title'>DATE</div>
+          <div styleName='info-text'>
+            {moment(review.reviewCreated).format('DD.MM.YYYY')}
+          </div>
+        </div>
+
+        <div styleName='info-holder'>
+          <div styleName='info-title'>STARS</div>
+          <div styleName='info-text'>
+            {Array(review.stars).fill(<Glyphicon glyph="star" />)}
+            {Array(5 - review.stars).fill(<span styleName="grey"><Glyphicon glyph="star" /></span>)}
+          </div>
+        </div>
+
+        <div styleName='info-holder'>
+          <div styleName='info-title'>{review.reviewId}</div>
+          <div styleName='info-text'>
+            {review.productTitle}
+          </div>
+        </div>
       </div>
-      <div>{title}</div>
+      <div styleName='title'>{title}</div>
       <div>{content}</div>
-      <br />
     </div>
   );
         
 }
 
-export default Review;
+export default CSSModules(Review, styles);
  
