@@ -1,5 +1,7 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+import moment from 'moment';
 
 import Review from '../../views/Review/Review';
 
@@ -12,6 +14,7 @@ class SearchResults extends Component {
 
       this.state = {
         page: 1,
+        loading: true,
         finished: false,
         apiResults: [],
       }
@@ -40,8 +43,13 @@ class SearchResults extends Component {
       fetch(url, init)
         .then(response => response.json())
         .then(json => {
+          console.log('hello');
           console.log(json);
-          this.setState({apiResults: json.reviews});
+
+          this.setState({
+            apiResults: this.state.apiResults.concat(json.reviews),
+            loading: false,
+          });
           if (json.hasMore) {
             this.setState({page: this.state.page + 1});
           } else {
@@ -84,6 +92,12 @@ class SearchResults extends Component {
       });
     }
 
+    groupResults(results) {
+      // note: doesn't work yet
+      let groupedResults = _.groupBy(results, (result) => moment(result.reviewCreated).startOf('isoWeek'));
+      console.log(groupedResults);
+    }
+
     render() {
       console.log(this.state);
 
@@ -94,7 +108,7 @@ class SearchResults extends Component {
       // sort
       filteredResults = this.sortResults(filteredResults);
       // and finally group
-      // let groupedResults = this.groupResults(sortedResults);
+      this.groupResults(filteredResults);
 
       return (
         <div>
