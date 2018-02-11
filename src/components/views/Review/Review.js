@@ -32,14 +32,14 @@ const Review = (props) => {
 
   return (
     <div key={review.reviewId}>
-      <hr />
+      <br />
       <div>
         <span>{review.stars} - </span>
         <span>{moment(review.reviewCreated).format('DD.MM.YYYY')}</span>
       </div>
       <div>{title}</div>
       <div>{content}</div>
-      <hr />
+      <br />
     </div>
   );
         

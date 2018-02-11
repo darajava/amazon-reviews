@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 
-import Review from '../../views/Review/Review';
+import ReviewGroup from '../../views/ReviewGroup/ReviewGroup';
 
 import store from '../../../store';
 
@@ -43,8 +43,6 @@ class SearchResults extends Component {
       fetch(url, init)
         .then(response => response.json())
         .then(json => {
-          console.log('hello');
-          console.log(json);
 
           this.setState({
             apiResults: this.state.apiResults.concat(json.reviews),
@@ -93,14 +91,17 @@ class SearchResults extends Component {
     }
 
     groupResults(results) {
-      // note: doesn't work yet
-      let groupedResults = _.groupBy(results, (result) => moment(result.reviewCreated).startOf('isoWeek'));
-      console.log(groupedResults);
+      switch (this.props.groupBy) {
+        case 'week':
+          return _.groupBy(results, (result) => moment(result.reviewCreated).startOf('isoWeek'));
+        case 'month':
+          return _.groupBy(results, (result) => moment(result.reviewCreated).startOf('month'));
+        default:
+          return _.groupBy(results, (result) => moment(result.reviewCreated).startOf('day'));
+      }
     }
 
     render() {
-      console.log(this.state);
-
       // first filter on search term because this is most likely to limit results
       let filteredResults = this.filterResultSearch(this.state.apiResults);
       // then filter on stars
@@ -108,17 +109,21 @@ class SearchResults extends Component {
       // sort
       filteredResults = this.sortResults(filteredResults);
       // and finally group
-      this.groupResults(filteredResults);
+      filteredResults = this.groupResults(filteredResults);
 
       return (
         <div>
-          {filteredResults.map((review) => {
-            return <Review
-              key={review.reviewId}
-              data={review}
-              searchTerm={this.props.searchTerm}
-            />
-          })}
+          {
+            Object.keys(filteredResults).map((key) => {
+              return <ReviewGroup
+                reviews={filteredResults[key]}
+                startTime={key}
+                grouping={this.props.groupBy}
+                searchTerm={this.props.searchTerm}
+              />
+            })
+          }
+          
         </div>
       );
     }
